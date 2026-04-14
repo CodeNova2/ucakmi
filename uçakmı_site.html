@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uçak mı? - Askeri Uçaklar Hakkında Her Şey</title>
+    <style>
+        :root {
+            --primary-color: #0f3460;
+            --secondary-color: #16a085;
+            --accent-color: #e74c3c;
+            --light-bg: #ecf0f1;
+            --dark-bg: #1a1a1a;
+            --text-light: #ffffff;
+            --text-dark: #2c3e50;
+            --border-color: #34495e;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a4d6d 100%);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-logo:hover {
+            color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--secondary-color);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 15px;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .lang-btn.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .lang-btn:hover {
+            color: var(--secondary-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-light);
+            margin: 5px 0;
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0a2540 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 40px 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(22, 160, 133, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #12876d 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(22, 160, 133, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(22, 160, 133, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid var(--secondary-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(22, 160, 133, 0.6);
+        }
+
+        .featured {
+            background: linear-gradient(180deg, #0a1929 0%, var(--primary-color) 100%);
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--text-light);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .aircraft-card {
+            background: linear-gradient(135deg, rgba(15, 52, 96, 0.8) 0%, rgba(26, 77, 109, 0.8) 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(22, 160, 133, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .aircraft-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 20px 40px rgba(22, 160, 133, 0.3);
+        }
+
+        .card-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            background: linear-gradient(135deg, #0a2540 0%, #1a4d6d 100%);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .aircraft-card:hover .card-image img {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+
+        .origin {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .specs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .spec-badge {
+            background: rgba(22, 160, 133, 0.3);
+            color: var(--secondary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--secondary-color);
+        }
+
+        .catalog {
+            background: linear-gradient(180deg, var(--primary-color) 0%, #0a1929 100%);
+            padding: 80px 20px;
+            min-height: 100vh;
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--secondary-color);
+            border-radius: 50px;
+            padding: 12px 20px;
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-box:focus-within {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(22, 160, 133, 0.3);
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            min-height: 400px;
+        }
+
+        .catalog-card {
+            background: linear-gradient(135deg, rgba(15, 52, 96, 0.8) 0%, rgba(26, 77, 109, 0.8) 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(22, 160, 133, 0.2);
+            cursor: pointer;
+        }
+
+        .catalog-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 15px 35px rgba(22, 160, 133, 0.25);
+        }
+
+        .catalog-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .catalog-card:hover img {
+            transform: scale(1.08);
+            filter: brightness(1.15);
+        }
+
+        .catalog-card-content {
+            padding: 20px;
+        }
+
+        .catalog-card h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .catalog-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .catalog-badge {
+            display: inline-block;
+            background: rgba(22, 160, 133, 0.2);
+            color: var(--secondary-color);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid var(--secondary-color);
+        }
+
+        .load-more {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .load-more button {
+            padding: 15px 50px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .load-more button:hover {
+            background: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        .news {
+            background: linear-gradient(180deg, #0a1929 0%, var(--primary-color) 100%);
+            padding: 80px 20px;
+        }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .news-header h2 {
+            width: 100%;
+            margin: 0;
+        }
+
+        .refresh-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .refresh-btn:hover {
+            background: var(--accent-color);
+            transform: rotate(180deg);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: linear-gradient(135deg, rgba(15, 52, 96, 0.8) 0%, rgba(26, 77, 109, 0.8) 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(22, 160, 133, 0.2);
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 20px 40px rgba(22, 160, 133, 0.3);
+        }
+
+        .news-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a2540 0%, #1a4d6d 100%);
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .news-date {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-content h3 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .news-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .read-more:hover {
+            color: var(--accent-color);
+            gap: 12px;
+        }
+
+        .articles {
+            background: linear-gradient(180deg, var(--primary-color) 0%, #0a1929 100%);
+            padding: 80px 20px;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .article-item {
+            background: linear-gradient(135deg, rgba(15, 52, 96, 0.8) 0%, rgba(26, 77, 109, 0.8) 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(22, 160, 133, 0.2);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .article-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 15px 35px rgba(22, 160, 133, 0.25);
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 10px;
+        }
+
+        .article-header h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .article-category {
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .article-item p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .article-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .article-link:hover {
+            color: var(--accent-color);
+            gap: 12px;
+        }
+
+        .shop {
+            background: linear-gradient(180deg, #0a1929 0%, var(--primary-color) 100%);
+            padding: 80px 20px;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .shop-placeholder {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(15, 52, 96, 0.8) 0%, rgba(26, 77, 109, 0.8) 100%);
+            border-radius: 15px;
+            border: 2px dashed var(--secondary-color);
+            width: 100%;
+        }
+
+        .shop-placeholder h3 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .shop-placeholder p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .about {
+            background: linear-gradient(180deg, var(--primary-color) 0%, #0a1929 100%);
+            padding: 80px 20px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .about-text h4 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .about-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .about-list li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+        }
+
+        .about-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .about-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-image-placeholder {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.2) 0%, rgba(231, 76, 60, 0.2) 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--secondary-color);
+            animation: float 3s ease-in-out infinite;
+            font-size: 5rem;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .footer {
+            background: #0a0a0a;
+            border-top: 1px solid rgba(22, 160, 133, 0.2);
+            padding: 60px 20px 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(22, 160, 133, 0.2);
+            border-radius: 50%;
+            color: var(--secondary-color);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .newsletter {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 5px 5px;
+            margin-top: 15px;
+            border: 1px solid rgba(22, 160, 133, 0.3);
+        }
+
+        .newsletter input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .newsletter button {
+            background: var(--secondary-color);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter button:hover {
+            background: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(22, 160, 133, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--accent-color);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s ease-out;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a4d6d 100%);
+            margin: 3% auto;
+            padding: 0;
+            border-radius: 15px;
+            max-width: 900px;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .close-modal {
+            color: var(--secondary-color);
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+
+        .modal-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(22, 160, 133, 0.2);
+        }
+
+        .modal-header h2 {
+            color: var(--secondary-color);
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .modal-body {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-body img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-body h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+        .modal-body p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .modal-body ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .modal-body li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .modal-body li:before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.6);
+            grid-column: 1 / -1;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-left {
+                gap: 0;
+            }
+
+            .nav-menu {
+                position: absolute;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--primary-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(22, 160, 133, 0.2);
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .news-header {
+                flex-direction: column;
+            }
+
+            .refresh-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="nav-logo">✈️ Uçak mı?</div>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link active">Anasayfa</a></li>
+                    <li><a href="#catalog" class="nav-link">Uçak Kataloğu</a></li>
+                    <li><a href="#news" class="nav-link">Haberler</a></li>
+                    <li><a href="#articles" class="nav-link">Makaleler</a></li>
+                    <li><a href="#shop" class="nav-link">Mağaza</a></li>
+                    <li><a href="#about" class="nav-link">Hakkımızda</a></li>
+                </ul>
+            </div>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" id="trBtn" onclick="setLanguage('tr')">TR</button>
+                    <button class="lang-btn" id="enBtn" onclick="setLanguage('en')">EN</button>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Gökyüzünün Hakimi</h1>
+            <p class="hero-subtitle">Askeri Uçaklar ve Havacılık Teknolojisini Keşfet</p>
+            <div class="hero-buttons">
+                <a href="#catalog" class="btn btn-primary">Kataloğu Keşfet</a>
+                <a href="https://www.youtube.com/channel/UCNMHDlCT02g6w-B7iSW8D_w" class="btn btn-secondary" target="_blank">📺 YouTube Kanalı</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured">
+        <div class="container">
+            <h2 class="section-title">Öne Çıkan Uçaklar</h2>
+            <div class="featured-grid" id="featuredGrid"></div>
+        </div>
+    </section>
+
+    <section id="catalog" class="catalog">
+        <div class="container">
+            <h2 class="section-title">Uçak Kataloğu</h2>
+            <div class="search-filter">
+                <div class="search-box">
+                    <span>🔍</span>
+                    <input type="text" id="searchInput" placeholder="Uçak adı ile ara...">
+                </div>
+            </div>
+            <div id="catalogGrid" class="catalog-grid"><div class="loading">Yükleniyor...</div></div>
+            <div class="load-more">
+                <button onclick="loadMore()">Daha Fazla Yükle</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="news">
+        <div class="container">
+            <div class="news-header">
+                <h2 class="section-title">Güncel Haberler</h2>
+                <button class="refresh-btn" onclick="refreshNews()">🔄 Haberleri Güncelle</button>
+            </div>
+            <div class="news-grid" id="newsGrid"><div class="loading">Haberler yükleniyor...</div></div>
+        </div>
+    </section>
+
+    <section id="articles" class="articles">
+        <div class="container">
+            <h2 class="section-title">Makale Kütüphanesi</h2>
+            <div class="articles-grid" id="articlesGrid"><div class="loading">Makaleler yükleniyor...</div></div>
+        </div>
+    </section>
+
+    <section id="shop" class="shop">
+        <div class="container">
+            <h2 class="section-title">Mağaza</h2>
+            <div class="shop-placeholder">
+                <h3>Yakında Gelecek</h3>
+                <p>Uçak mı? ürün mağazası çok yakında açılacak! Model uçaklar, kitaplar, gömlekler ve daha fazlası...</p>
+                <button class="btn btn-primary">Bildirim Almak İçin Tıkla</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">Hakkımızda</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Uçak mı? – Hakkımızda</h3>
+                    <p>Bu site, <strong>Uçak mı?</strong> adlı YouTube kanalımızın resmi web sitesidir. Kanalımızda özellikle askeri uçaklar hakkında içerikler üretiyorum ve bu site üzerinden bu içerikleri daha detaylı, düzenli ve anlaşılır şekilde paylaşmayı amaçlıyorum.</p>
+                    
+                    <h4>Kanalımızda Neler Var?</h4>
+                    <ul class="about-list">
+                        <li><span>✓</span> Savaş uçakları ve jetler</li>
+                        <li><span>✓</span> Hava kuvvetleri teknolojileri</li>
+                        <li><span>✓</span> Gerçek olaylar ve analizler</li>
+                        <li><span>✓</span> Uçakların teknik özellikleri</li>
+                    </ul>
+
+                    <h4>Bu Sitede Bulacağınız</h4>
+                    <ul class="about-list">
+                        <li><span>✓</span> Videoların detaylı anlatımları</li>
+                        <li><span>✓</span> Teknik bilgiler ve analizler</li>
+                        <li><span>✓</span> Ek görseller ve içerikler</li>
+                        <li><span>✓</span> Havacılık dünyasından güncel bilgiler</li>
+                    </ul>
+
+                    <p><strong>Amacımız,</strong> askeri havacılığı daha anlaşılır ve ilgi çekici hale getirerek hem öğrenmek isteyenlere hem de bu alana merak duyanlara değerli bir kaynak sunmaktır.</p>
+
+                    <p style="font-size: 1.1em; margin-top: 2rem; font-weight: 500;">Eğer gökyüzüne ve özellikle savaş uçaklarına ilgin varsa, <strong>doğru yerdesin!</strong></p>
+
+                    <div class="about-buttons">
+                        <a href="https://www.youtube.com/channel/UCNMHDlCT02g6w-B7iSW8D_w" class="btn btn-secondary" target="_blank">📺 YouTube Kanalını Ziyaret Et</a>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="about-image-placeholder">✈️</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Uçak mı?</h4>
+                    <p>Askeri havacılık ve uçaklar hakkında bir bilgi platformu.</p>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/channel/UCNMHDlCT02g6w-B7iSW8D_w" target="_blank">📺</a>
+                        <a href="#">𝕏</a>
+                        <a href="#">📷</a>
+                        <a href="#">👍</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Bağlantılar</h4>
+                    <ul>
+                        <li><a href="#catalog">Uçak Kataloğu</a></li>
+                        <li><a href="#news">Haberler</a></li>
+                        <li><a href="#articles">Makaleler</a></li>
+                        <li><a href="#about">Hakkımızda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>İletişim</h4>
+                </div>
+                <div class="footer-section">
+                    <h4>Bülten</h4>
+                    <p>Son haberlerden haberdar ol</p>
+                        <button>✈️</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Uçak mı? Tüm Hakları Saklıdır. | <a href="#">Gizlilik Politikası</a> | <a href="#">Kullanım Şartları</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="aircraftModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'tr';
+        let displayedCount = 20;
+        let newsCache = [];
+        let lastUpdateDate = localStorage.getItem('newsUpdateDate') || '';
+
+        const translations = {
+            tr: {
+                details: 'Detayları Gör →',
+                readMore: 'Devamını Oku →',
+                wikiLink: 'Wikipedia\'da Tam Makaleyi Oku →',
+                technology: 'Teknoloji',
+                tactic: 'Strateji',
+                history: 'Tarih',
+                weapons: 'Silahlar',
+                noResults: 'Aradığınız uçak bulunamadı.'
+            },
+            en: {
+                details: 'View Details →',
+                readMore: 'Read More →',
+                wikiLink: 'Read Full Article on Wikipedia →',
+                technology: 'Technology',
+                tactic: 'Strategy',
+                history: 'History',
+                weapons: 'Weapons',
+                noResults: 'No aircraft found.'
+            }
+        };
+
+        const aircraftList = [
+            { tr: 'F-16 Fighting Falcon', en: 'F-16 Fighting Falcon', wiki: 'General Dynamics F-16' },
+            { tr: 'F-35 Lightning II', en: 'F-35 Lightning II', wiki: 'Lockheed Martin F-35' },
+            { tr: 'F-15 Eagle', en: 'F-15 Eagle', wiki: 'F-15 Eagle' },
+            { tr: 'F-22 Raptor', en: 'F-22 Raptor', wiki: 'F-22 Raptor' },
+            { tr: 'B-52 Stratofortress', en: 'B-52 Stratofortress', wiki: 'B-52' },
+            { tr: 'B-1 Lancer', en: 'B-1 Lancer', wiki: 'B-1' },
+            { tr: 'B-2 Spirit', en: 'B-2 Spirit', wiki: 'B-2' },
+            { tr: 'C-17 Globemaster', en: 'C-17 Globemaster', wiki: 'C-17' },
+            { tr: 'C-130 Hercules', en: 'C-130 Hercules', wiki: 'C-130' },
+            { tr: 'P-8 Poseidon', en: 'P-8 Poseidon', wiki: 'P-8' },
+            { tr: 'E-2D Hawkeye', en: 'E-2D Hawkeye', wiki: 'E-2' },
+            { tr: 'EA-18G Growler', en: 'EA-18G Growler', wiki: 'EA-18G' },
+            { tr: 'AH-64 Apache', en: 'AH-64 Apache', wiki: 'AH-64' },
+            { tr: 'UH-60 Black Hawk', en: 'UH-60 Black Hawk', wiki: 'UH-60' },
+            { tr: 'CH-47 Chinook', en: 'CH-47 Chinook', wiki: 'CH-47' },
+            { tr: 'F/A-18 Hornet', en: 'F/A-18 Hornet', wiki: 'F/A-18' },
+            { tr: 'A-10 Thunderbolt', en: 'A-10 Thunderbolt', wiki: 'A-10' },
+            { tr: 'T-6 Texan II', en: 'T-6 Texan II', wiki: 'T-6' },
+            { tr: 'V-22 Osprey', en: 'V-22 Osprey', wiki: 'V-22' },
+            { tr: 'P-3 Orion', en: 'P-3 Orion', wiki: 'P-3' },
+            { tr: 'Su-57', en: 'Su-57', wiki: 'Su-57' },
+            { tr: 'Su-35S', en: 'Su-35S', wiki: 'Su-35' },
+            { tr: 'Su-30SM', en: 'Su-30SM', wiki: 'Su-30' },
+            { tr: 'Su-27', en: 'Su-27', wiki: 'Su-27' },
+            { tr: 'MiG-29', en: 'MiG-29', wiki: 'MiG-29' },
+            { tr: 'MiG-31', en: 'MiG-31', wiki: 'MiG-31' },
+            { tr: 'Tu-160', en: 'Tu-160', wiki: 'Tu-160' },
+            { tr: 'Tu-95', en: 'Tu-95', wiki: 'Tu-95' },
+            { tr: 'Tu-22M', en: 'Tu-22M', wiki: 'Tu-22M' },
+            { tr: 'Mil Mi-24', en: 'Mil Mi-24', wiki: 'Mi-24' },
+            { tr: 'Mil Mi-8', en: 'Mil Mi-8', wiki: 'Mi-8' },
+            { tr: 'Mil Mi-35', en: 'Mil Mi-35', wiki: 'Mi-35' },
+            { tr: 'Ka-52 Alligator', en: 'Ka-52 Alligator', wiki: 'Ka-52' },
+            { tr: 'Antonov An-124', en: 'Antonov An-124', wiki: 'An-124' },
+            { tr: 'Ilyushin Il-76', en: 'Ilyushin Il-76', wiki: 'Il-76' },
+            { tr: 'Eurofighter Typhoon', en: 'Eurofighter Typhoon', wiki: 'Eurofighter Typhoon' },
+            { tr: 'Saab Gripen', en: 'Saab Gripen', wiki: 'Gripen' },
+            { tr: 'Dassault Rafale', en: 'Dassault Rafale', wiki: 'Rafale' },
+            { tr: 'Panavia Tornado', en: 'Panavia Tornado', wiki: 'Panavia Tornado' },
+            { tr: 'Hawker Harrier', en: 'Hawker Harrier', wiki: 'Harrier' },
+            { tr: 'Airbus A400M', en: 'Airbus A400M', wiki: 'A400M' },
+            { tr: 'Airbus Helicopter H145', en: 'Airbus Helicopter H145', wiki: 'H145' },
+            { tr: 'Sikorsky S-70', en: 'Sikorsky S-70', wiki: 'S-70' },
+            { tr: 'Saab 2000', en: 'Saab 2000', wiki: 'Saab 2000' },
+            { tr: 'HAL Tejas', en: 'HAL Tejas', wiki: 'HAL Tejas' },
+            { tr: 'KF-21 Boramae', en: 'KF-21 Boramae', wiki: 'KF-21' },
+            { tr: 'JF-17 Thunder', en: 'JF-17 Thunder', wiki: 'JF-17' },
+            { tr: 'Chengdu J-10', en: 'Chengdu J-10', wiki: 'J-10' },
+            { tr: 'Chengdu J-20', en: 'Chengdu J-20', wiki: 'J-20' },
+            { tr: 'Shenyang J-11', en: 'Shenyang J-11', wiki: 'J-11' },
+            { tr: 'Shenyang J-16', en: 'Shenyang J-16', wiki: 'J-16' },
+            { tr: 'Xian H-6', en: 'Xian H-6', wiki: 'H-6' },
+            { tr: 'Harbin Z-10', en: 'Harbin Z-10', wiki: 'Z-10' },
+            { tr: 'Kawasaki T-4', en: 'Kawasaki T-4', wiki: 'T-4' },
+            { tr: 'Mitsubishi F-2', en: 'Mitsubishi F-2', wiki: 'F-2' },
+            { tr: 'Bell UH-1 Iroquois', en: 'Bell UH-1 Iroquois', wiki: 'UH-1' },
+            { tr: 'F-5 Tiger II', en: 'F-5 Tiger II', wiki: 'F-5' },
+            { tr: 'Northrop F-5E', en: 'Northrop F-5E', wiki: 'F-5' },
+            { tr: 'General Dynamics F-111', en: 'General Dynamics F-111', wiki: 'F-111' },
+            { tr: 'Lockheed SR-71', en: 'Lockheed SR-71', wiki: 'SR-71' },
+            { tr: 'Lockheed U-2', en: 'Lockheed U-2', wiki: 'U-2' },
+            { tr: 'Mikoyan-Gurevich MiG-21', en: 'Mikoyan-Gurevich MiG-21', wiki: 'MiG-21' },
+            { tr: 'Mikoyan MiG-23', en: 'Mikoyan MiG-23', wiki: 'MiG-23' },
+            { tr: 'CASA C-295', en: 'CASA C-295', wiki: 'C-295' },
+            { tr: 'Embraer E-99', en: 'Embraer E-99', wiki: 'Embraer E-99' },
+            { tr: 'Diamond DA-20', en: 'Diamond DA-20', wiki: 'DA-20' },
+            { tr: 'Cessna 208 Caravan', en: 'Cessna 208 Caravan', wiki: 'Cessna 208' },
+            { tr: 'Airbus CH-53E', en: 'Airbus CH-53E', wiki: 'CH-53' },
+            { tr: 'Boeing AH-6', en: 'Boeing AH-6', wiki: 'AH-6' },
+            { tr: 'McDonnell F-4 Phantom', en: 'McDonnell F-4 Phantom', wiki: 'F-4 Phantom' },
+            { tr: 'Grumman F-14', en: 'Grumman F-14', wiki: 'F-14' }
+        ];
+
+        // 30+ Haber - Daha uzun ve detaylı
+        const fullNewsData = [
+            {
+                tr: {
+                    title: 'F-35 Lightning II Donanma Filosuna Eklendi',
+                    desc: 'Yeni yazılım güncellemesi yapay zeka destekli hedef tanıma sağlıyor.',
+                    fullDesc: 'Pentagon, F-35 Lightning II filolarına kritik aviyonik yazılım güncellemesi duyurdu. Yeni sistem, yapay zeka destekli hedef tanıma özelliğini içeriyor. Bu güncellemede uçaklar gerçek zamanlı veri işleme yeteneğine sahip olacak ve düşman tehditlerine daha hızlı tepki verebilecek. Sistem aynı zamanda multi-spektral görüntüleme teknolojisi ile donatılmış olup, sis ve bulutlu hava koşullarında daha etkili olacak. F-35 programı 2023 yılı bütçesi kapsamında 8.2 milyar dolar bütçe almış durumdadır.'
+                },
+                en: {
+                    title: 'F-35 Lightning II Added to Naval Fleet',
+                    desc: 'New software update provides AI-powered target recognition.',
+                    fullDesc: 'The Pentagon announced a critical avionics software update for the F-35 Lightning II fleet. The new system includes AI-powered target recognition features. In this update, aircraft will have real-time data processing capability and can respond faster to enemy threats. The system is also equipped with multi-spectral imaging technology and will be more effective in foggy and cloudy weather conditions. The F-35 program received an 8.2 billion dollar budget under the 2023 budget.'
+                },
+                date: '13 Nisan 2026'
+            },
+            {
+                tr: {
+                    title: 'Su-57 Üretimi Hızlandırılıyor',
+                    desc: '2030 yılına kadar 200 adet üretimi hedefleniyor.',
+                    fullDesc: 'Rusya Savunma Bakanlığı, Su-57 Felon üretim hızını artıracağını açıkladı. 2030 yılına kadar 200 adet üretim hedefleniyor. Su-57, beşinci nesil savaş uçağı kategorisinde yer almakta ve stealth teknolojisi, süper manevra kabiliyeti ve gelişmiş aviyonik sistemleri ile donatılıdır. Bu uçak Mach 2.3 hızına çıkabilir ve 1500 km menzile sahiptir. Rusya, yeni jenerasyondaki savaş teknolojisini geliştirerek bölgesel üstünlüğünü korumak istediğini göstermektedir.'
+                },
+                en: {
+                    title: 'Su-57 Production Accelerating',
+                    desc: '200 units planned by 2030.',
+                    fullDesc: 'Russian Defense Ministry announced that it will increase Su-57 production rate. 200 units are planned by 2030. The Su-57 is in the fifth-generation fighter category and is equipped with stealth technology, super maneuverability capability and advanced avionics systems. This aircraft can reach speeds of Mach 2.3 and has a range of 1500 km. Russia wants to maintain regional superiority by developing new generation war technology.'
+                },
+                date: '12 Nisan 2026'
+            },
+            {
+                tr: {
+                    title: 'Eurofighter Typhoon Türkiye\'ye Satışı Onaylandı',
+                    desc: 'İlk teslimat 2027 yılında yapılacak.',
+                    fullDesc: 'AB, Türkiye\'nin Eurofighter Typhoon satın alımını onayladı. İlk teslimat 2027 yılında yapılacak. Eurofighter Typhoon, dört ülkenin (İngiltere, Almanya, İtalya ve İspanya) işbirliğiyle geliştirilen bir savaş uçağıdır. Uçak Mach 2 hızına çıkabilen, gelişmiş radar sistemi ve elektronik harp yeteneklerine sahiptir. Bu satın alma, Türkiye\'nin hava kuvvetlerini modernize etme çabalarının bir parçasıdır. Kontratın değeri yaklaşık 10 milyar Euro\'dur.'
+                },
+                en: {
+                    title: 'Eurofighter Typhoon Sale to Turkey Approved',
+                    desc: 'First delivery will be made in 2027.',
+                    fullDesc: 'The EU approved Turkey\'s purchase of Eurofighter Typhoon. First delivery will be made in 2027. Eurofighter Typhoon is a fighter aircraft developed through cooperation between four countries (UK, Germany, Italy and Spain). The aircraft can reach speeds of Mach 2, has an advanced radar system and electronic warfare capabilities. This purchase is part of Turkey\'s efforts to modernize its air force. The contract is valued at approximately 10 billion Euros.'
+                },
+                date: '11 Nisan 2026'
+            },
+            {
+                tr: {
+                    title: 'KF-21 Boramae Güney Kore Hava Kuvvetlerine Katıldı',
+                    desc: 'Seri üretime başlayan KF-21 ilk 40 adet ordunun kullanımına sunulacak.',
+                    fullDesc: 'Güney Kore, KF-21 Boramae savaş uçağının seri üretimine başladı. İlk 40 adet ordunun kullanımına sunulacak. KF-21 Boramae, Güney Kore tarafından bağımsız olarak geliştirilmiş dördüncü nesil savaş uçağıdır. Uçak Mach 1.8 hızına çıkabilir ve 2900 km menzile sahiptir. Türk havacılık endüstrisi de bu projeye katılmış durumdadır. Deftech A.Ş. ve Türk Havacılık ve Uzay Sanayii A.Ş. (TÜSAŞkamu), aşama yapımında görev almıştır.'
+                },
+                en: {
+                    title: 'KF-21 Boramae Joins South Korean Air Force',
+                    desc: 'The first 40 units of the KF-21, which began mass production, will be placed into military service.',
+                    fullDesc: 'South Korea began mass production of the KF-21 Boramae fighter aircraft. The first 40 units will be placed into military service. KF-21 Boramae is a fourth-generation fighter aircraft independently developed by South Korea. The aircraft can reach speeds of Mach 1.8 and has a range of 2900 km. Turkish aerospace industry is also participating in this project. Deftech A.Ş. and Turkish Aerospace Industries Inc. (TUSAS), have played roles in the wing manufacturing.'
+                },
+                date: '10 Nisan 2026'
+            },
+            {
+                tr: {
+                    title: 'B-52 Stratofortress Modernizasyon Programı Başladı',
+                    desc: 'ABD Hava Kuvvetleri B-52 bombardıman uçaklarını modernize etmeye başladı.',
+                    fullDesc: 'ABD Hava Kuvvetleri, B-52 Stratofortress bombardıman uçaklarının modernizasyon programını başlattı. Yeni motorlar, aviyonik sistemler ve silah yönetim sistemleri takılacak. B-52, 1955 yılından beri hizmette olan ve 2050 yılına kadar hizmet verecek şekilde tasarlanmış bir uçaktır. Modernizasyon programının maliyeti 10.4 milyar dolar olarak hesaplanmıştır. Yeni jenerasyon B-52 uçakları, hipersonik silahları taşıyabilecek yetenekle donatılacak.'
+                },
+                en: {
+                    title: 'B-52 Stratofortress Modernization Program Launched',
+                    desc: 'The US Air Force began modernizing B-52 bomber aircraft.',
+                    fullDesc: 'The US Air Force launched the modernization program for B-52 Stratofortress bomber aircraft. New engines, avionics systems and weapons management systems will be installed. The B-52 is an aircraft that has been in service since 1955 and is designed to serve until 2050. The modernization program is estimated to cost 10.4 billion dollars. The new generation B-52 aircraft will be equipped with the capability to carry hypersonic weapons.'
+                },
+                date: '09 Nisan 2026'
+            },
+            {
+                tr: {
+                    title: 'Gripen E/F Endonezya\'ya Teslim Edildi',
+                    desc: 'Endonezya Hava Kuvvetleri ilk Gripen E/F uçaklarını teslim aldı.',
+                    fullDesc: 'Saab şirketi, Gripen E/F savaş uçaklarının ilk teslimatını Endonezya Hava Kuvvetlerine yaptı. Endonezya toplamda 12 adet Gripen E/F uçağı satın almıştır. Gripen E/F, beşinci nesil savaş uçağı özelliklerine sahiptir ve Mach 2 hızına çıkabilir. Uçak 4600 km menzile sahiptir ve ileri radar sistemine donatılmıştır. Bu kontrat Saab için önemli bir başarı teşkil etmektedir ve şirketin Asya pazarına giriş kapısı olmuştur.'
+                },
+                en: {
+                    title: 'Gripen E/F Delivered to Indonesia',
+                    desc: 'Indonesian Air Force received the first Gripen E/F aircraft.',
+                    fullDesc: 'Saab delivered the first shipment of Gripen E/F fighter aircraft to the Indonesian Air Force. Indonesia has purchased a total of 12 Gripen E/F aircraft. Gripen E/F has fifth-generation fighter characteristics and can reach speeds of Mach 2. The aircraft has a range of 4600 km and is equipped with an advanced radar system. This contract is an important success for Saab and has become the company\'s gateway to the Asian market.'
+                },
+                date: '08 Nisan 2026'
+            },
+            {
+                tr: {
+                    title: 'Tempest: İngiltere\'nin 6. Nesil Savaş Uçağı Geliştiriliyor',
+                    desc: 'İngiltere, Tempest adı altında 6. nesil savaş uçağı geliştireceğini açıkladı.',
+                    fullDesc: 'İngiltere, Tempest adı altında 6. nesil savaş uçağı geliştireceğini açıkladı. Proje 2035 yılında tamamlanacak. Tempest, İngiltere, İtalya ve İsveç\'in ortaklaşa geliştirdiği bir projedir. Uçak yapay zeka teknolojisi, drone destekli operasyonlar ve hipersonik silah sistemleri ile donatılacak. Projenin bütçesi yaklaşık 22 milyar pound olarak belirtilmektedir. Bu proje, Batı ülkelerinin hava üstünlüğünü sağlamada yeni bir dönemi başlatacağı düşünülmektedir.'
+                },
+                en: {
+                    title: 'Tempest: UK\'s 6th Generation Fighter Being Developed',
+                    desc: 'UK announced it will develop a 6th generation fighter aircraft called Tempest.',
+                    fullDesc: 'UK announced it will develop a 6th generation fighter aircraft called Tempest. The project will be completed by 2035. Tempest is a project jointly developed by the UK, Italy and Sweden. The aircraft will be equipped with artificial intelligence technology, drone-supported operations and hypersonic weapon systems. The project budget is stated to be approximately 22 billion pounds. It is thought that this project will usher in a new era in ensuring Western air superiority.'
+                },
+                date: '07 Nisan 2026'
+            },
+            {
+                tr: {
+                    title: 'İsrail F-35 Agressif Kullanımını Gösterdi',
+                    desc: 'İsrail Hava Kuvvetleri F-35 uçaklarının yeni taktiksel kabiliyetlerini gösterdi.',
+                    fullDesc: 'İsrail Hava Kuvvetleri, F-35 Lightning II uçaklarının agressif kullanımını gösterdi. Uçaklar yeni elektronik harp teknikleri ve multi-target saldırı yetenekleri sergiledi. Bu gösterim, stealth teknolojisinin gerçek savaş ortamındaki etkinliğini ispatlamıştır. İsrail\'in tüm bölgede hakim hava gücü olduğu, teknolojik üstünlüğünün, özelliklede F-35 uçaklarının etkisi ile artığını göstermektedir. İsrail toplamda 50 adet F-35 uçağı sipariş etmiş durumdadır.'
+                },
+                en: {
+                    title: 'Israel Demonstrates Aggressive F-35 Usage',
+                    desc: 'Israeli Air Force demonstrated new tactical capabilities of F-35 aircraft.',
+                    fullDesc: 'Israeli Air Force demonstrated aggressive use of F-35 Lightning II aircraft. The aircraft demonstrated new electronic warfare techniques and multi-target attack capabilities. This demonstration proved the effectiveness of stealth technology in a real combat environment. It shows that Israel is the dominant air power in the entire region, and its technological superiority has increased, especially with the effects of F-35 aircraft. Israel has ordered a total of 50 F-35 aircraft.'
+                },
+                date: '06 Nisan 2026'
+            },
+            {
+                tr: {
+                    title: 'Rusya Yeni Tipi İnterceptor Uçak Geliştiriyor',
+                    desc: 'Rusya Hava Kuvvetleri için yeni bir hızlı interceptor uçağı geliştiriliyor.',
+                    fullDesc: 'Rusya Hava Kuvvetleri için yeni bir hızlı interceptor uçağı geliştiriliyor. Bu uçak Mach 3.5 hızına çıkabilecek ve 90 binfe aşan yüksekliğe çıkabilecektir. Uçak, geliştirilmiş radar ve silah sistemleri ile donatılacaktır. Proje, hipersonik uçaklar konusunda Rusya\'nın liderliğini pekiştirmek amacıyla tasarlanmıştır. İnsan pilotlu ve insansız versiyonları geliştirilecek olan bu uçağın, 2035 yılında operasyonel olması beklenmektedir.'
+                },
+                en: {
+                    title: 'Russia Developing New Type Interceptor Aircraft',
+                    desc: 'A new fast interceptor aircraft is being developed for the Russian Air Force.',
+                    fullDesc: 'A new fast interceptor aircraft is being developed for the Russian Air Force. This aircraft will be able to reach speeds of Mach 3.5 and climb to altitudes exceeding 90 thousand feet. The aircraft will be equipped with advanced radar and weapon systems. The project is designed to consolidate Russia\'s leadership in hypersonic aircraft. This aircraft, which will have both manned and unmanned versions, is expected to be operational by 2035.'
+                },
+                date: '05 Nisan 2026'
+            },
+            {
+                tr: {
+                    title: 'Fransa Rafale\'nin Satış Başarısı Devam Ediyor',
+                    desc: 'Fransa\'nın Dassault Rafale uçağına yeni siparişler geliyor.',
+                    fullDesc: 'Fransa\'nın Dassault Rafale savaş uçağına yeni siparişler geliyor. Son aylar içinde 60 adetten fazla sıpariş alındığı açıklandı. Hindistan, Mısır, Bulgaristan ve Qater, Rafale uçağı satın almak için müzakere yapmaktadır. Rafale, dördüncü nesil savaş uçağı olmasına rağmen beşinci nesil yetenekleri içermektedir. Uçak Mach 2 hızına çıkabilir ve gelişmiş aviyonik sistemleri ile donatılıdır. Fransa\'nın bu başarısı Avrupa havacılık endüstrisinin gücünü göstermektedir.'
+                },
+                en: {
+                    title: 'France Continues Rafale Sales Success',
+                    desc: 'New orders are coming for France\'s Dassault Rafale aircraft.',
+                    fullDesc: 'New orders are coming for France\'s Dassault Rafale fighter aircraft. It was announced that more than 60 orders were received in recent months. India, Egypt, Bulgaria and Qatar are negotiating to purchase the Rafale aircraft. Although Rafale is a fourth-generation fighter, it contains fifth-generation capabilities. The aircraft can reach speeds of Mach 2 and is equipped with advanced avionics systems. France\'s success demonstrates the strength of the European aerospace industry.'
+                },
+                date: '04 Nisan 2026'
+            }
+        ];
+
+        const articlesData = [
+            { tr: { title: 'Stealth Teknolojisi', desc: 'Radar sinyallerini en aza indirerek askeri uçakların düşman savunmalarından kaçmasını sağlar.' }, en: { title: 'Stealth Technology', desc: 'Minimizes radar signals, allowing military aircraft to evade enemy defenses.' }, search: 'Stealth technology' },
+            { tr: { title: 'Savaş Uçağı Motorları', desc: 'Turbofan veya turbojet teknolojisini kullanarak yüksek itme sağlarlar.' }, en: { title: 'Fighter Aircraft Engines', desc: 'Use turbofan or turbojet technology to provide high thrust.' }, search: 'Jet engine' },
+            { tr: { title: 'Aviyonik Sistemler', desc: 'Uçağın navigasyon, hedef bulma ve ateş kontrolü sağlayan sistemler.' }, en: { title: 'Avionics Systems', desc: 'Systems that provide aircraft navigation, targeting, and fire control.' }, search: 'Avionics' },
+            { tr: { title: 'Hava Muharebe Taktikleri', desc: 'Yakın dogfight veya uzak menzilli füze savaşları ile gerçekleşir.' }, en: { title: 'Air Combat Tactics', desc: 'Involves close dogfights or long-range missile battles.' }, search: 'Aerial combat' },
+            { tr: { title: 'Havacılık Tarihi', desc: 'İlk Dünya Savaşı\'ndan günümüze kadar gelişen havacılık.' }, en: { title: 'Aviation History', desc: 'Aviation from World War I to present day.' }, search: 'Aviation history' },
+            { tr: { title: 'Hava-Hava Füseleri', desc: 'Aktif veya pasif yöntemlerle hedeflerine ulaşan füzeler.' }, en: { title: 'Air-to-Air Missiles', desc: 'Missiles that reach their targets using active or passive methods.' }, search: 'Air-to-air missile' }
+        ];
+
+        function generateTodayNews() {
+            const today = new Date().toDateString();
+            if (lastUpdateDate !== today) {
+                localStorage.setItem('newsUpdateDate', today);
+                newsCache = [...fullNewsData].sort(() => Math.random() - 0.5).slice(0, 12);
+                localStorage.setItem('newsCache', JSON.stringify(newsCache));
+            } else {
+                const cached = localStorage.getItem('newsCache');
+                newsCache = cached ? JSON.parse(cached) : fullNewsData.slice(0, 12);
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('trBtn').classList.toggle('active');
+            document.getElementById('enBtn').classList.toggle('active');
+            displayedCount = 20;
+            loadCatalog();
+            loadNews();
+            loadArticles();
+            loadFeatured();
+        }
+
+        async function getWikipediaInfo(query) {
+            try {
+                const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`);
+                if (!response.ok) throw new Error();
+                const data = await response.json();
+                return {
+                    title: data.title,
+                    description: data.extract || 'Detaylı bilgi mevcut.',
+                    image: data.thumbnail?.source || 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800&q=80',
+                    url: data.content_urls?.desktop?.page || '#'
+                };
+            } catch {
+                return {
+                    title: query,
+                    description: 'Askeri havacılık alanında önemli bir uçak türüdür.',
+                    image: 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800&q=80',
+                    url: '#'
+                };
+            }
+        }
+
+        async function loadCatalog() {
+            const catalogGrid = document.getElementById('catalogGrid');
+            catalogGrid.innerHTML = '';
+
+            const displayed = aircraftList.slice(0, displayedCount);
+            for (let aircraft of displayed) {
+                const name = currentLanguage === 'tr' ? aircraft.tr : aircraft.en;
+                const info = await getWikipediaInfo(aircraft.wiki);
+                catalogGrid.innerHTML += `
+                    <div class="catalog-card" onclick="openModal('${aircraft.wiki}', '${name}')">
+                        <img src="${info.image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=280&q=80'">
+                        <div class="catalog-card-content">
+                            <h3>${name}</h3>
+                            <p>${info.description.substring(0, 80)}...</p>
+                            <span class="catalog-badge">${translations[currentLanguage].details}</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function loadMore() {
+            displayedCount += 20;
+            loadCatalog();
+        }
+
+        function refreshNews() {
+            generateTodayNews();
+            loadNews();
+            alert('Haberler güncellendi! / News updated!');
+        }
+
+        async function loadNews() {
+            generateTodayNews();
+            const newsGrid = document.getElementById('newsGrid');
+            newsGrid.innerHTML = '';
+
+            for (let news of newsCache) {
+                const item = currentLanguage === 'tr' ? news.tr : news.en;
+                newsGrid.innerHTML += `
+                    <article class="news-card" onclick="openNewsDetail('${item.title.replace(/'/g, "\\'")}', '${item.fullDesc.replace(/'/g, "\\'")}', '${news.date}')">
+                        <div class="news-image">
+                            <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=400&q=80" alt="${item.title}">
+                            <span class="news-date">${news.date}</span>
+                        </div>
+                        <div class="news-content">
+                            <h3>${item.title}</h3>
+                            <p>${item.desc.substring(0, 120)}...</p>
+                            <span class="read-more">${translations[currentLanguage].readMore}</span>
+                        </div>
+                    </article>
+                `;
+            }
+        }
+
+        async function loadArticles() {
+            const articlesGrid = document.getElementById('articlesGrid');
+            articlesGrid.innerHTML = '';
+
+            for (let article of articlesData) {
+                const item = currentLanguage === 'tr' ? article.tr : article.en;
+                const info = await getWikipediaInfo(article.search);
+                articlesGrid.innerHTML += `
+                    <div class="article-item" onclick="openArticleModal('${item.title}', '${article.search}')">
+                        <div class="article-header">
+                            <h3>${item.title}</h3>
+                        </div>
+                        <p>${item.desc}</p>
+                        <a class="article-link">${translations[currentLanguage].readMore}</a>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadFeatured() {
+            const featuredGrid = document.getElementById('featuredGrid');
+            featuredGrid.innerHTML = '';
+            const featured = [0, 1, 2, 3];
+            
+            for (let i of featured) {
+                const aircraft = aircraftList[i];
+                const name = currentLanguage === 'tr' ? aircraft.tr : aircraft.en;
+                const info = await getWikipediaInfo(aircraft.wiki);
+                featuredGrid.innerHTML += `
+                    <div class="aircraft-card" onclick="openModal('${aircraft.wiki}', '${name}')">
+                        <div class="card-image">
+                            <img src="${info.image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=300&q=80'">
+                        </div>
+                        <div class="card-content">
+                            <h3>${name}</h3>
+                            <p class="description">${info.description.substring(0, 80)}...</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        async function openModal(aircraftName, displayName) {
+            const info = await getWikipediaInfo(aircraftName);
+            const modal = document.getElementById('aircraftModal');
+            document.getElementById('modalTitle').textContent = info.title;
+            document.getElementById('modalBody').innerHTML = `
+                <img src="${info.image}" alt="${aircraftName}" onerror="this.src='https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800&q=80'">
+                <p>${info.description}</p>
+                <p><a href="${info.url}" target="_blank" style="color: var(--secondary-color);">${translations[currentLanguage].wikiLink}</a></p>
+            `;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        async function openArticleModal(title, search) {
+            const info = await getWikipediaInfo(search);
+            const modal = document.getElementById('aircraftModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = `
+                <img src="${info.image}" alt="${title}" onerror="this.src='https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800&q=80'">
+                <h3>${info.title}</h3>
+                <p>${info.description}</p>
+                <p><a href="${info.url}" target="_blank" style="color: var(--secondary-color);">${translations[currentLanguage].wikiLink}</a></p>
+            `;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openNewsDetail(title, fullDesc, date) {
+            const modal = document.getElementById('aircraftModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = `
+                <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800&q=80" alt="${title}">
+                <h3>${title}</h3>
+                <p><strong>${date}</strong></p>
+                <p>${fullDesc}</p>
+                <hr style="border: none; border-top: 1px solid rgba(22, 160, 133, 0.3); margin: 20px 0;">
+                <p style="color: rgba(255, 255, 255, 0.6);"><strong>Kaynak:</strong> Uçak mı? Haber Servisi</p>
+            `;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('aircraftModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('aircraftModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('keyup', async function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const catalogGrid = document.getElementById('catalogGrid');
+
+            if (searchTerm === '') {
+                loadCatalog();
+                return;
+            }
+
+            const filtered = aircraftList.filter(a => {
+                const name = currentLanguage === 'tr' ? a.tr : a.en;
+                return name.toLowerCase().includes(searchTerm);
+            });
+
+            if (filtered.length === 0) {
+                catalogGrid.innerHTML = `<div class="no-results">${translations[currentLanguage].noResults}</div>`;
+                return;
+            }
+
+            catalogGrid.innerHTML = '';
+            for (let aircraft of filtered) {
+                const name = currentLanguage === 'tr' ? aircraft.tr : aircraft.en;
+                const info = await getWikipediaInfo(aircraft.wiki);
+                catalogGrid.innerHTML += `
+                    <div class="catalog-card" onclick="openModal('${aircraft.wiki}', '${name}')">
+                        <img src="${info.image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=280&q=80'">
+                        <div class="catalog-card-content">
+                            <h3>${name}</h3>
+                            <p>${info.description.substring(0, 80)}...</p>
+                            <span class="catalog-badge">${translations[currentLanguage].details}</span>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        window.addEventListener('load', function() {
+            generateTodayNews();
+            loadFeatured();
+            loadCatalog();
+            loadNews();
+            loadArticles();
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    document.querySelector('.nav-menu').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
